@@ -5,6 +5,7 @@ from django.db import models
 
 class RestaurantConfig(models.Model):
     name = models.CharField(max_length=150, default="Mio Ristorante", verbose_name="Restaurant Name")
+    logo = models.ImageField(upload_to="restaurant/", blank=True, null=True, verbose_name="Logo")
 
     class Meta:
         verbose_name = "Restaurant Configuration"

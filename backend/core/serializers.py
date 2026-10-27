@@ -11,9 +11,7 @@ from core.models import (
 class RestaurantConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = RestaurantConfig
-        fields = [
-            'name',
-        ]
+        fields = ['name', "logo"]
 
 
 class DishSerializer(serializers.ModelSerializer):

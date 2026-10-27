@@ -23,6 +23,17 @@
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="settings-form">
         <div class="form-group">
+          <label for="logo">Logo Ristorante</label>
+          <input id="logo" type="file" accept="image/*" (change)="onFileChange($event)" />
+
+          @if (previewUrl || settingsService.config()?.logo) {
+            <img
+              [src]="previewUrl || settingsService.config()?.logo"
+              alt="Anteprima logo"
+              class="logo-preview"
+            />
+          }
+
           <label for="restaurant-name">Nome del Ristorante</label>
           <input
             id="restaurant-name"

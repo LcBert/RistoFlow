@@ -22,12 +22,12 @@ from .models import (
 class RestaurantConfigView(APIView):
     def get(self, request):
         config = RestaurantConfig.load()
-        serializer = RestaurantConfigSerializer(config)
+        serializer = RestaurantConfigSerializer(config, context={'request': request})
         return Response(serializer.data)
 
     def patch(self, request):
         config = RestaurantConfig.load()
-        serializer = RestaurantConfigSerializer(config, data=request.data, partial=True)
+        serializer = RestaurantConfigSerializer(config, data=request.data, partial=True, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

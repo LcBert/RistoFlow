@@ -33,7 +33,7 @@ export class SettingsService {
         })
     }
 
-    updateConfig(payload: Partial<RestaurantConfig>): void {
+    updateConfig(payload: FormData | Partial<RestaurantConfig>): void {
         this._loading.set(true);
 
         this.http.patch<RestaurantConfig>(this.apiUrl, payload).subscribe({

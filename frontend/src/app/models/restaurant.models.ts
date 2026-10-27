@@ -1,5 +1,6 @@
 export interface RestaurantSettings {
     name: string;
+    logo?: string | null;
 }
 
 export interface Table {

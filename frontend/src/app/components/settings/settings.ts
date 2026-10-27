@@ -13,6 +13,8 @@ export class Settings implements OnInit {
   private readonly fb = inject(FormBuilder);
 
   protected readonly successMessage = signal<boolean>(false);
+  protected selectedFile: File | null = null;
+  protected previewUrl: string | null = null;
 
   protected readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(150)]],
@@ -33,10 +35,24 @@ export class Settings implements OnInit {
     this.settingsService.loadConfig();
   }
 
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      this.selectedFile = input.files[0];
+      this.previewUrl = URL.createObjectURL(this.selectedFile);
+    }
+  }
+
   onSubmit(): void {
     if (this.form.invalid) return;
 
-    this.settingsService.updateConfig(this.form.getRawValue());
+    const formData = new FormData();
+    formData.append('name', this.form.controls.name.value);
+    if (this.selectedFile) {
+      formData.append('logo', this.selectedFile);
+    }
+
+    this.settingsService.updateConfig(formData);
     this.successMessage.set(true);
     setTimeout(() => this.successMessage.set(false), 3000);
   }
