@@ -1,6 +1,7 @@
 <a [routerLink]="module().route" class="module-card">
   <div class="module-header">
-    <span class="module-icon">{{ module().icon }}</span>
+    <!-- <span class="module-icon">{{ module().icon }}</span> -->
+    <img src="icons/{{ module().icon }}.svg" alt="{{ module().icon }}" class="icon" />
   </div>
   <div class="module-body">
     <h4>{{ module().title }}</h4>

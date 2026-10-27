@@ -3,8 +3,17 @@ from core.models import (
     Dish,
     Order,
     OrderItem,
+    RestaurantConfig,
     Table,
 )
+
+
+class RestaurantConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RestaurantConfig
+        fields = [
+            'name',
+        ]
 
 
 class DishSerializer(serializers.ModelSerializer):

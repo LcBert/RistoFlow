@@ -1,7 +1,7 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TablesService } from '../../../services/tables.service';
-import { Table } from '../../../models/restaurant.models';
+import { TablesService } from '../../services/tables.service';
+import { Table } from '../../models/restaurant.models';
 
 @Component({
     selector: 'app-table-details',

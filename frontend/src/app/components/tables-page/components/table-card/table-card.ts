@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Table } from '../../../../../models/restaurant.models';
+import { Table } from '../../../../models/restaurant.models';
 
 @Component({
     selector: 'app-table-card',

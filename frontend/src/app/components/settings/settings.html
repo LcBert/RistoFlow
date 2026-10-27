@@ -1,0 +1,54 @@
+<section class="settings-container">
+  <div class="settings-card">
+    <header class="settings-header">
+      <h2>Impostazioni Ristorante</h2>
+      <p>Gestisci le informazioni e le configurazioni generali della tua attività.</p>
+    </header>
+
+    @if (settingsService.loading() && !settingsService.config()) {
+      <div class="loading-state">
+        <span class="spinner"></span>
+        <p>Caricamento impostazioni in corso...</p>
+      </div>
+    } @else {
+      @if (settingsService.error()) {
+        <div class="alert error">
+          {{ settingsService.error() }}
+        </div>
+      }
+
+      @if (successMessage()) {
+        <div class="alert success">Impostazioni salvate con successo!</div>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="settings-form">
+        <div class="form-group">
+          <label for="restaurant-name">Nome del Ristorante</label>
+          <input
+            id="restaurant-name"
+            type="text"
+            formControlName="name"
+            placeholder="Es. Ristorante Bella Vista"
+          />
+          @if (form.controls.name.invalid && form.controls.name.touched) {
+            <small class="field-error">Il nome del ristorante è obbligatorio.</small>
+          }
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="btn-save"
+            [disabled]="form.invalid || settingsService.loading()"
+          >
+            @if (settingsService.loading()) {
+              Salvataggio...
+            } @else {
+              Salva Modifiche
+            }
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</section>

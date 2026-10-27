@@ -3,6 +3,31 @@ from decimal import Decimal
 from django.db import models
 
 
+class RestaurantConfig(models.Model):
+    name = models.CharField(max_length=150, default="Mio Ristorante", verbose_name="Restaurant Name")
+
+    class Meta:
+        verbose_name = "Restaurant Configuration"
+        verbose_name_plural = "Restaurant Configuration"
+
+    def __str__(self) -> str:
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(
+            pk=1,
+            defaults={
+                "name": "Mio Ristorante"
+            }
+        )
+        return obj
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Category name")
     description = models.TextField(blank=True, verbose_name="Description")

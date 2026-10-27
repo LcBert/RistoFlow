@@ -5,8 +5,18 @@ from core.models import (
     Dish,
     Order,
     OrderItem,
+    RestaurantConfig,
     Table
 )
+
+
+@admin.register(RestaurantConfig)
+class RestaurantConfigAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return not RestaurantConfig.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(Category)

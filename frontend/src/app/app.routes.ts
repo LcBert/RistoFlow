@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
-import { Home } from './components/pages/home/home';
-import { TableDetails } from './components/pages/table-details/table-details';
-import { TableOpen } from './components/pages/table-open/table-open';
-import { TablesPage } from './components/pages/tables-page/tables-page';
-import { TableAdd } from './components/pages/table-add/table-add';
+import { Home } from './components/home/home';
+import { TableDetails } from './components/table-details/table-details';
+import { TableOpen } from './components/table-open/table-open';
+import { TablesPage } from './components/tables-page/tables-page';
+import { TableAdd } from './components/table-add/table-add';
+import { Settings } from './components/settings/settings';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -11,4 +12,5 @@ export const routes: Routes = [
     { path: 'tables/open', component: TableOpen },
     { path: 'tables/add', component: TableAdd },
     { path: 'tables/:id', component: TableDetails },
+    { path: 'settings', component: Settings },
 ];

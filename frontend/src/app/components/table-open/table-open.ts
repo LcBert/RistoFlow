@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TablesService } from '../../../services/tables.service';
+import { TablesService } from '../../services/tables.service';
 
 @Component({
     selector: 'app-table-open',

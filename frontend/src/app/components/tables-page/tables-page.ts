@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
-import { TablesService } from '../../../services/tables.service';
+import { TablesService } from '../../services/tables.service';
 import { TableCardComponent } from './components/table-card/table-card';
 import { RouterLink } from '@angular/router';
 

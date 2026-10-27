@@ -23,6 +23,7 @@ from core.views import (
     DishViewSet,
     OrderItemViewSet,
     OrderViewSet,
+    RestaurantConfigView,
     TableViewSet
 )
 
@@ -35,5 +36,6 @@ router.register(r'order-items', OrderItemViewSet, basename='order-item')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/config/', RestaurantConfigView.as_view(), name='restaurant-config'),
     path('api/auth/token/', obtain_auth_token, name='api_token_auth')
 ]

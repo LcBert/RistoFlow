@@ -1,7 +1,9 @@
-from django.http import HttpRequest
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views.decorators.http import require_POST
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import RestaurantConfig
+from .serializers import RestaurantConfigSerializer
 
 from core.serializers import (
     DishSerializer,
@@ -15,6 +17,21 @@ from .models import (
     OrderItem,
     Table,
 )
+
+
+class RestaurantConfigView(APIView):
+    def get(self, request):
+        config = RestaurantConfig.load()
+        serializer = RestaurantConfigSerializer(config)
+        return Response(serializer.data)
+
+    def patch(self, request):
+        config = RestaurantConfig.load()
+        serializer = RestaurantConfigSerializer(config, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TableViewSet(viewsets.ModelViewSet):

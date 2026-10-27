@@ -1,3 +1,7 @@
+export interface RestaurantSettings {
+    name: string;
+}
+
 export interface Table {
     number: number;
     seats: number;

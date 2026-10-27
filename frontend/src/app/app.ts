@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { SettingsService } from './services/settings.service';
 
 @Component({
     imports: [RouterOutlet, RouterLink],
@@ -7,6 +8,13 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     styleUrl: './app.scss',
     templateUrl: './app.html',
 })
-export class App {
+export class App implements OnInit {
     protected readonly title = signal('frontend');
+
+    protected readonly settingsService = inject(SettingsService);
+    protected readonly config = this.settingsService.config;
+
+    ngOnInit(): void {
+        this.settingsService.loadConfig();
+    }
 }
