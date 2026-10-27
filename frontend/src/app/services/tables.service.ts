@@ -14,7 +14,7 @@ export interface CreateTablePayload {
 })
 export class TablesService {
     private readonly http = inject(HttpClient);
-    private readonly apiUrl = 'http://localhost:8000/api/tables/';
+    private readonly apiUrl = `http://${window.location.hostname}:8000/api/tables/`;
 
     // Stato reattivo centralizzato tramite Signals
     private readonly _tables = signal<Table[]>([]);
@@ -42,15 +42,18 @@ export class TablesService {
         });
     }
 
-    getTableById(id: number | string): Observable<Table> {
-        return this.http.get<Table>(`${this.apiUrl}${id}/`);
+    getTable(number: number | string): Observable<Table> {
+        return this.http.get<Table>(`${this.apiUrl}${number}/`);
+    }
+
+    getTableById(number: number | string): Observable<Table> {
+        return this.getTable(number);
     }
 
     createTable(payload: CreateTablePayload): void {
         this._loading.set(true);
         this.http.post<Table>(this.apiUrl, payload).subscribe({
             next: (newTable) => {
-                // Aggiorna lo stato locale senza dover ricaricare l'intera lista
                 this._tables.update((current) => [...current, newTable]);
                 this._loading.set(false);
             },
@@ -61,11 +64,11 @@ export class TablesService {
         });
     }
 
-    updateStatus(id: number, status: Table['status']): void {
-        this.http.patch<Table>(`${this.apiUrl}${id}/`, { status }).subscribe({
+    updateStatus(number: number, status: Table['status']): void {
+        this.http.patch<Table>(`${this.apiUrl}${number}/`, { status }).subscribe({
             next: (updatedTable) => {
                 this._tables.update((current) =>
-                    current.map((t) => (t.id === id ? updatedTable : t))
+                    current.map((t) => (t.number === number ? updatedTable : t))
                 );
             },
             error: (err) => this._error.set(err.message || 'Errore aggiornamento stato')

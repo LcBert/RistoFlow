@@ -3,8 +3,11 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f8fafc;
-  font-family: system-ui, -apple-system, sans-serif;
+  background: linear-gradient(145deg, #222222 0%, #323232 100%);
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .navbar {
@@ -12,21 +15,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: #ffffff;
+  background-color: #323232;
   border-bottom: 1px solid #e2e8f0;
 
   h1 {
     margin: 0;
     font-size: 1.25rem;
-    color: #0f172a;
-  }
-
-  .status-indicator {
-    font-size: 0.85rem;
-    color: #64748b;
-    background: #f1f5f9;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
+    color: #b2b2b2;
   }
 }
 

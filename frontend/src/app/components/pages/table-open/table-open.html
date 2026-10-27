@@ -1,0 +1,64 @@
+<section class="table-open-container">
+  <div class="card-form">
+    <h2>Apri Nuovo Tavolo</h2>
+    <p>Assegna i coperti e avvia il servizio</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="table-select">Seleziona Tavolo Libero</label>
+        <select
+          id="table-select"
+          formControlName="tableNumber"
+          (change)="onTableChange($event)"
+        >
+          <option value="" disabled selected>-- Scegli un tavolo --</option>
+          @for (t of freeTables(); track t.number) {
+            <option [value]="t.number">
+              Tavolo {{ t.number }} (Max {{ t.seats }} posti)
+            </option>
+          }
+        </select>
+        @if (freeTables().length === 0) {
+          <small class="warning">Nessun tavolo libero al momento.</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Numero Coperti</label>
+        <div class="stepper">
+          <button type="button" (click)="adjustCovers(-1)">−</button>
+          <input
+            type="number"
+            formControlName="covers"
+            min="1"
+            readonly
+          />
+          <button type="button" (click)="adjustCovers(1)">+</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="table-notes">Note Tavolo (opzionale)</label>
+        <input
+          id="table-notes"
+          type="text"
+          formControlName="notes"
+          placeholder="Es. Seggiolone bimbo, intolleranze..."
+        />
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="form.invalid || freeTables().length === 0"
+        >
+          Avvia Servizio Tavolo
+        </button>
+        <button type="button" class="btn-secondary" (click)="form.reset()">
+          Annulla
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

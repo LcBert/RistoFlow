@@ -41,6 +41,12 @@ frontend:
     echo "[Frontend] Press Ctrl+C to stop the frontend."
     cd frontend && npm start > /dev/null 2>&1
 
+# Generate a new Angular component
+generate-component location:
+    echo "[Angular] Generating {{location}} component"
+    cd frontend && npx ng generate component components/{{ location }} > /dev/null 2>&1
+    echo "[Angular] Component {{location}} generated\n"
+
 
 # ================ DJANGO ================ #
 

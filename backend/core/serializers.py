@@ -37,4 +37,4 @@ class TableSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Table
-        fields = ['id', 'number', 'seats', 'status', 'status_display']
+        fields = ['number', 'seats', 'status', 'status_display']

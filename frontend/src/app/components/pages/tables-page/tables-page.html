@@ -1,0 +1,11 @@
+<section class="tables-page-component">
+  <div class="header-actions">
+    <a routerLink="/tables/add" class="btn-action"> ➕ Aggiungi Tavolo </a>
+  </div>
+
+  <div class="tables-container">
+    @for (table of allTables(); track table.number) {
+      <app-table-card [table]="table" />
+    }
+  </div>
+</section>

@@ -1,0 +1,6 @@
+<a [routerLink]="cardRoute()" class="card-link">
+  @if (cardIcon()) {
+    <span class="card-icon" aria-hidden="true">{{ cardIcon() }}</span>
+  }
+  <span class="card-label">{{ cardTitle() }}</span>
+</a>
