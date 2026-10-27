@@ -1,0 +1,35 @@
+/* frontend/src/app/app.scss */
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+
+  h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #0f172a;
+  }
+
+  .status-indicator {
+    font-size: 0.85rem;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+  }
+}
+
+.content {
+  flex: 1;
+}

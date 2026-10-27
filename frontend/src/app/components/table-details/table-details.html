@@ -1,0 +1,31 @@
+<div class="table-details-container">
+  <div class="navigation-bar">
+    <a routerLink="/" class="back-link">&larr; Torna alla home</a>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-state">
+      <p>Caricamento dettagli tavolo...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-state">
+      <p>{{ error() }}</p>
+    </div>
+  } @else if (table(); as t) {
+    <div class="table-card-details">
+      <header class="header">
+        <h2>Tavolo {{ t.number }}</h2>
+        <span class="status-badge" [class]="t.status.toLowerCase()">
+          {{ t.status_display }}
+        </span>
+      </header>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Capienza</span>
+          <span class="value">{{ t.seats }} posti</span>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,106 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.card-link {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  text-decoration: none;
+  color: #0f172a;
+  background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #10b981, #059669);
+  }
+
+  .card-icon-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+    flex-shrink: 0;
+
+    .card-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      font-size: 1.25rem;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 8px;
+    }
+  }
+
+  .card-body {
+    flex: 1;
+    padding: 0.85rem 0.75rem 0.85rem 0.85rem;
+
+    h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #065f46;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: #4b5563;
+      line-height: 1.4;
+    }
+  }
+
+  .card-arrow-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    background-color: #059669;
+    color: #ffffff;
+    flex-shrink: 0;
+    transition: background-color 0.2s ease;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.2s ease;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(145deg, #ffffff 0%, #dcfce7 100%);
+    border-color: #86efac;
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.15);
+
+    .card-arrow-panel {
+      background-color: #047857;
+
+      svg {
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
