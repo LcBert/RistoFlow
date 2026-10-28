@@ -1,22 +1,23 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TablesService } from '../../services/tables.service';
-import { RouterLink } from '@angular/router';
+import { TablesService } from '../../../../services/tables.service';
 
 @Component({
-    imports: [ReactiveFormsModule,RouterLink],
+    imports: [ReactiveFormsModule],
     selector: 'app-table-add',
     styleUrl: './table-add.scss',
     templateUrl: './table-add.html',
 })
-export class TableAdd implements OnInit {
-    protected readonly tablesService = inject(TablesService)
+export class TableAdd {
+    readonly close = output<void>();
+
+    protected readonly tablesService = inject(TablesService);
     private readonly fb = inject(FormBuilder);
 
     protected readonly form = this.fb.nonNullable.group({
         number: ['', [Validators.required]],
         seats: [2, [Validators.required, Validators.min(1)]],
-    })
+    });
 
     adjustSeats(delta: number): void {
         const current = this.form.controls.seats.value;
@@ -24,14 +25,15 @@ export class TableAdd implements OnInit {
         this.form.controls.seats.setValue(next);
     }
 
-    ngOnInit(): void {
+    onCancel(): void {
+        this.close.emit();
     }
 
     onSubmit(): void {
         if (this.form.invalid) return;
 
-        const { number } = this.form.getRawValue();
-        const { seats } = this.form.getRawValue();
-        this.tablesService.createTable(Number(number), Number(seats))
+        const { number, seats } = this.form.getRawValue();
+        this.tablesService.createTable(Number(number), Number(seats));
+        this.close.emit();
     }
 }

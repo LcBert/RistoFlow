@@ -1,26 +1,33 @@
-<section class="table-add-container">
-  <div class="card-form">
+<div class="modal-backdrop" (click)="onCancel()">
+  <div class="card-form" (click)="$event.stopPropagation()">
     <h2>Crea Nuovo Tavolo</h2>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="table-number">Numero Tavolo</label>
-        <input type="number" name="Table Number" id="table-number" formControlName="number" />
+        <input
+          type="number"
+          name="Table Number"
+          id="table-number"
+          formControlName="number"
+          min="1"
+          autofocus
+        />
       </div>
 
       <div class="form-group">
         <label>Numero Posti</label>
         <div class="stepper">
           <button type="button" (click)="adjustSeats(-1)">−</button>
-          <input type="number" formControlName="seats" min="1" />
+          <input type="number" formControlName="seats" min="1" readonly />
           <button type="button" (click)="adjustSeats(1)">+</button>
         </div>
       </div>
 
       <div class="form-actions">
         <button type="submit" class="btn-primary" [disabled]="form.invalid">Aggiungi Tavolo</button>
-        <a class="btn-secondary" routerLink="/tables">Annulla</a>
+        <button type="button" class="btn-secondary" (click)="onCancel()">Annulla</button>
       </div>
     </form>
   </div>
-</section>
+</div>

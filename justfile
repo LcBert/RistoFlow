@@ -44,7 +44,7 @@ frontend:
 # Generate a new Angular component
 generate-component location:
     echo "[Angular] Generating {{location}} component"
-    cd frontend && npx ng generate component components/{{ location }} --skip-test > /dev/null 2>&1
+    cd frontend && npx ng generate component components/{{ location }} --skip-tests > /dev/null 2>&1
     echo "[Angular] Component {{location}} generated\n"
 
 

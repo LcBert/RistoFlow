@@ -1,6 +1,8 @@
 <section class="tables-page-component">
   <div class="header-actions">
-    <a routerLink="/tables/add" class="btn-action"> ➕ Aggiungi Tavolo </a>
+    <button type="button" class="btn-action" (click)="isAddModalOpen.set(true)">
+      ➕ Aggiungi Tavolo
+    </button>
   </div>
 
   <div class="tables-container">
@@ -8,4 +10,8 @@
       <app-table-card [table]="table" />
     }
   </div>
+
+  @if (isAddModalOpen()) {
+    <app-table-add (close)="isAddModalOpen.set(false)" />
+  }
 </section>
