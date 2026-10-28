@@ -50,7 +50,8 @@ export class TablesService {
         return this.getTable(number);
     }
 
-    createTable(payload: CreateTablePayload): void {
+    createTable(number: number, seats: number): void {
+        let payload: CreateTablePayload = { number, seats, status: "FREE" };
         this._loading.set(true);
         this.http.post<Table>(this.apiUrl, payload).subscribe({
             next: (newTable) => {

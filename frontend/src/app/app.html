@@ -1,15 +1,15 @@
 <!-- frontend/src/app/app.html -->
 <div class="layout">
   <header class="navbar">
-    <div class="brand">
+    <a routerLink="/" title="Torna alla Home" class="brand">
       @if (settingsService.config()?.logo; as logo) {
         <img [src]="logo" alt="Logo" class="navbar-logo" />
       }
       <h1>{{ config()?.name }}</h1>
-    </div>
+    </a>
 
-    <a routerLink="/">
-      <img src="icons/home.svg" alt="home" class="icon" />
+    <a routerLink="/settings" title="Impostazioni">
+      <img src="icons/settings.svg" alt="Impostazioni" class="icon" />
     </a>
   </header>
 

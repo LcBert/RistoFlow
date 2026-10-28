@@ -6,16 +6,10 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="table-select">Seleziona Tavolo Libero</label>
-        <select
-          id="table-select"
-          formControlName="tableNumber"
-          (change)="onTableChange($event)"
-        >
+        <select id="table-select" formControlName="tableNumber" (change)="onTableChange($event)">
           <option value="" disabled selected>-- Scegli un tavolo --</option>
           @for (t of freeTables(); track t.number) {
-            <option [value]="t.number">
-              Tavolo {{ t.number }} (Max {{ t.seats }} posti)
-            </option>
+            <option [value]="t.number">Tavolo {{ t.number }} (Max {{ t.seats }} posti)</option>
           }
         </select>
         @if (freeTables().length === 0) {
@@ -27,12 +21,7 @@
         <label>Numero Coperti</label>
         <div class="stepper">
           <button type="button" (click)="adjustCovers(-1)">−</button>
-          <input
-            type="number"
-            formControlName="covers"
-            min="1"
-            readonly
-          />
+          <input type="number" formControlName="covers" min="1" />
           <button type="button" (click)="adjustCovers(1)">+</button>
         </div>
       </div>
@@ -55,9 +44,7 @@
         >
           Avvia Servizio Tavolo
         </button>
-        <button type="button" class="btn-secondary" (click)="form.reset()">
-          Annulla
-        </button>
+        <button type="button" class="btn-secondary" (click)="form.reset()">Annulla</button>
       </div>
     </form>
   </div>

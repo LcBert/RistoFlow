@@ -28,11 +28,6 @@ export class Home implements OnInit {
             route: 'orders/takeaway',
             icon: 'bag',
         },
-        {
-            title: 'Impostazioni',
-            route: 'settings/',
-            icon: 'settings',
-        },
     ];
 
     protected readonly modules: HomeModuleItem[] = [
