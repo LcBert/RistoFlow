@@ -78,9 +78,9 @@ superuser-auto:
 # Start database container and server
 server:
     just up-db
+    cd backend && uv run python manage.py runserver 0.0.0.0:8000 > /dev/null 2>&1
     echo "[Django] Server is running at http://localhost:8000/"
     echo "[Django] Press Ctrl+C to stop the server."
-    cd backend && uv run python manage.py runserver 0.0.0.0:8000 > /dev/null 2>&1
 
 # Reset database container and apply migrations
 reset-db:

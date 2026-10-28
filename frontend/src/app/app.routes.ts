@@ -4,11 +4,15 @@ import { TableDetails } from './components/table-details/table-details';
 import { TableOpen } from './components/table-open/table-open';
 import { TablesPage } from './components/tables-page/tables-page';
 import { Settings } from './components/settings/settings';
+import { MenuPage } from './components/menu-page/menu-page';
 
 export const routes: Routes = [
     { path: '', component: Home },
     { path: 'tables', component: TablesPage },
     { path: 'tables/open', component: TableOpen },
     { path: 'tables/:id', component: TableDetails },
+
+    { path: 'menu', component: MenuPage },
+
     { path: 'settings', component: Settings },
 ];

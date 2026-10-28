@@ -1,0 +1,15 @@
+<section class="menu-page-component">
+  <div class="header-actions">
+    <input type="text" class="search-text" placeholder="Cerca piatto..." />
+
+    <button class="btn-action">➕ Aggiungi Piatto</button>
+  </div>
+  
+  <hr />
+
+  <div class="menu-container">
+    @for (dish of allDishes(); track dish.id) {
+      <app-dish-card [dish]="dish" />
+    }
+  </div>
+</section>

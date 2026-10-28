@@ -46,6 +46,8 @@ class Dish(models.Model):
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
         related_name="dishes",
         verbose_name="Categoria",
     )

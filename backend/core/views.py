@@ -40,7 +40,7 @@ class TableViewSet(viewsets.ModelViewSet):
 
 
 class DishViewSet(viewsets.ModelViewSet):
-    queryset = Dish.objects.filter(is_available=True)
+    queryset = Dish.objects.all().order_by('id')
     serializer_class = DishSerializer
 
 

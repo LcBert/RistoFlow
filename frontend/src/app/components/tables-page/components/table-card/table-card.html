@@ -1,4 +1,4 @@
-<a [routerLink]="cardRoute()" class="table-link" [attr.aria-label]="'Tavolo ' + cardNumber()">
+<a [routerLink]="cardRoute()" class="table-card" [attr.aria-label]="'Tavolo ' + cardNumber()">
   <div class="card-body" [class]="'status-' + statusCode()">
     <div class="card-top">
       @if (cardSeats(); as seats) {
