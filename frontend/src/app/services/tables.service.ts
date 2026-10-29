@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Table } from '../models/restaurant.models';
 
 export interface CreateTablePayload {
@@ -50,19 +50,21 @@ export class TablesService {
         return this.getTable(number);
     }
 
-    createTable(number: number, seats: number): void {
-        let payload: CreateTablePayload = { number, seats, status: "FREE" };
+    createTable(number: number, seats: number): Observable<Table> {
+        const payload: CreateTablePayload = { number, seats, status: "FREE" };
         this._loading.set(true);
-        this.http.post<Table>(this.apiUrl, payload).subscribe({
-            next: (newTable) => {
-                this._tables.update((current) => [...current, newTable]);
-                this._loading.set(false);
-            },
-            error: (err) => {
-                this._error.set(err.message || 'Errore durante la creazione del tavolo');
-                this._loading.set(false);
-            }
-        });
+        return this.http.post<Table>(this.apiUrl, payload).pipe(
+            tap({
+                next: (newTable) => {
+                    this._tables.update((current) => [...current, newTable]);
+                    this._loading.set(false);
+                },
+                error: (err) => {
+                    this._error.set(err.message || 'Errore durante la creazione del tavolo');
+                    this._loading.set(false);
+                }
+            })
+        );
     }
 
     updateStatus(number: number, status: Table['status']): void {

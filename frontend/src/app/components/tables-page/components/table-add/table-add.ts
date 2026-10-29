@@ -33,7 +33,11 @@ export class TableAdd {
         if (this.form.invalid) return;
 
         const { number, seats } = this.form.getRawValue();
-        this.tablesService.createTable(Number(number), Number(seats));
+        this.tablesService.createTable(Number(number), Number(seats)).subscribe({
+            next: () => {
+                this.tablesService.loadTables()
+            }
+        })
         this.close.emit();
     }
 }

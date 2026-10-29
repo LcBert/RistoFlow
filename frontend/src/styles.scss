@@ -21,5 +21,18 @@ body {
   height: 28px;
   display: inline-block;
   vertical-align: middle;
-//   filter: brightness(0) invert(1);
+  //   filter: brightness(0) invert(1);
+}
+
+/* Chrome, Safari, Edge, Opera */
+.input-no-spin::-webkit-outer-spin-button,
+.input-no-spin::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.input-no-spin {
+  -moz-appearance: textfield;
+  appearance: textfield; /* Proprietà standard per browser moderni */
 }
