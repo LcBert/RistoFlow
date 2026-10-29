@@ -1,12 +1,13 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Dish } from '../models/restaurant.models';
 
 export interface CreateDishPayload {
     name: string;
     price: number;
     category: number;
+    description: string;
     is_available?: boolean;
 }
 
@@ -51,19 +52,21 @@ export class DishesService {
         return this.getDish(id);
     }
 
-    createDish(name: string, price: number, category: number, is_available: boolean = true): void {
-        const payload: CreateDishPayload = { name, price, category, is_available };
+    createDish(category: number, name: string, price: number, description: string): Observable<Dish> {
+        const payload: CreateDishPayload = { name, price, category, description, is_available: true };
         this._loading.set(true);
-        this.http.post<Dish>(this.apiUrl, payload).subscribe({
-            next: (newDish) => {
-                this._dishes.update((current) => [...current, newDish]);
-                this._loading.set(false);
-            },
-            error: (err) => {
-                this._error.set(err.message || 'Errore durante la creazione del piatto');
-                this._loading.set(false);
-            }
-        });
+        return this.http.post<Dish>(this.apiUrl, payload).pipe(
+            tap({
+                next: (newDish) => {
+                    this._dishes.update((current) => [...current, newDish]);
+                    this._loading.set(false);
+                },
+                error: (err) => {
+                    this._error.set(err.message || 'Errore durante la creazione del piatto');
+                    this._loading.set(false);
+                }
+            })
+        )   ;
     }
 
     updateAvailability(id: number, is_available: boolean): void {

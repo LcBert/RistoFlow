@@ -2,9 +2,9 @@
   <div class="header-actions">
     <input type="text" class="search-text" placeholder="Cerca piatto..." />
 
-    <button class="btn-action">➕ Aggiungi Piatto</button>
+    <button class="btn-action" (click)="isAddModalOpen.set(true)">➕ Aggiungi Piatto</button>
   </div>
-  
+
   <hr />
 
   <div class="menu-container">
@@ -12,4 +12,8 @@
       <app-dish-card [dish]="dish" />
     }
   </div>
+
+  @if (isAddModalOpen()) {
+    <app-dish-add (close)="isAddModalOpen.set(false)" />
+  }
 </section>

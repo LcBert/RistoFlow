@@ -37,7 +37,7 @@ class Category(models.Model):
     if TYPE_CHECKING:
         dishes: RelatedManager["Dish"]
 
-    name = models.CharField(primary_key=True, max_length=100, unique=True, verbose_name="Category name")
+    name = models.CharField(max_length=100, unique=True, verbose_name="Category name")
     description = models.TextField(blank=True, verbose_name="Description")
 
     class Meta:

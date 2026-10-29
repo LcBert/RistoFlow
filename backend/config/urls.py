@@ -22,6 +22,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter
 
 from core.views import (
+    CategoryViewSet,
     DishViewSet,
     OrderItemViewSet,
     OrderViewSet,
@@ -31,6 +32,7 @@ from core.views import (
 
 router = DefaultRouter()
 router.register(r'tables', TableViewSet, basename="table")
+router.register(r'categories', CategoryViewSet, basename="category")
 router.register(r'dishes', DishViewSet, basename="dish")
 router.register(r'orders', OrderViewSet, basename='order')
 router.register(r'order-items', OrderItemViewSet, basename='order-item')

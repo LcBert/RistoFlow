@@ -18,7 +18,7 @@ export class App implements OnInit {
         effect(() => {
             const config = this.settingsService.config();
             if (config) {
-                this.titleService.setTitle(`${config.name} · Gestionale`);
+                this.titleService.setTitle(`${config.name} · RistoFlow`);
 
                 if (config.logo) {
                     this.updateFavicon(config.logo);

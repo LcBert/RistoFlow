@@ -10,6 +10,13 @@ export interface Table {
     status_display: string;
 }
 
+export interface Category {
+    id: number;
+    name: string;
+    price: number;
+    description: string;
+}
+
 export interface Dish {
     id: number;
     name: string;

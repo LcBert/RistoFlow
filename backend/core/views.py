@@ -3,8 +3,8 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import RestaurantConfig, TableStatus
-from .serializers import RestaurantConfigSerializer
+from .models import Category, RestaurantConfig, TableStatus
+from .serializers import CategorySerializer, RestaurantConfigSerializer
 
 from core.serializers import (
     DishSerializer,
@@ -38,6 +38,11 @@ class RestaurantConfigView(APIView):
 class TableViewSet(viewsets.ModelViewSet):
     queryset = Table.objects.all().order_by('number')
     serializer_class = TableSerializer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all().order_by('name')
+    serializer_class = CategorySerializer
 
 
 class DishViewSet(viewsets.ModelViewSet):

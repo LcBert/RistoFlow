@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from core.models import (
+    Category,
     Dish,
     Order,
     OrderItem,
@@ -12,6 +13,12 @@ class RestaurantConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = RestaurantConfig
         fields = ['name', "logo"]
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["id", "name", "description"]
 
 
 class DishSerializer(serializers.ModelSerializer):
