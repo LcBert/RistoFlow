@@ -2,6 +2,7 @@ import { Component, computed, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TablesService } from '../../services/tables.service';
+import { OrderService } from '../../services/order.service';
 
 @Component({
     selector: 'app-table-open',
@@ -11,6 +12,7 @@ import { TablesService } from '../../services/tables.service';
 })
 export class TableOpen implements OnInit {
     protected readonly tablesService = inject(TablesService);
+    protected readonly ordersService = inject(OrderService);
     private readonly fb = inject(FormBuilder);
     private readonly router = inject(Router);
 
@@ -46,8 +48,11 @@ export class TableOpen implements OnInit {
     onSubmit(): void {
         if (this.form.invalid) return;
 
-        const { tableNumber } = this.form.getRawValue();
-        this.tablesService.updateStatus(Number(tableNumber), 'OCCUPIED');
-        this.router.navigate(['/tables', tableNumber]);
+        const { tableNumber, covers } = this.form.getRawValue();
+        this.ordersService.openNewOrder(+tableNumber, covers).subscribe({
+            next: () => {
+                this.router.navigate(['/tables', tableNumber]);
+            }
+        })
     }
 }

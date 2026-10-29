@@ -1,5 +1,5 @@
-# Temp: remove in production
+# Warn: remove in production
 # Disable all migrations files from staging
 
-!__init__.py
 *.py
+!__init__.py

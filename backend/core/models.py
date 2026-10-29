@@ -1,6 +1,10 @@
 from decimal import Decimal
+from typing import TYPE_CHECKING
 
 from django.db import models
+
+if TYPE_CHECKING:
+    from django.db.models.manager import RelatedManager
 
 
 class RestaurantConfig(models.Model):
@@ -30,7 +34,10 @@ class RestaurantConfig(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True, verbose_name="Category name")
+    if TYPE_CHECKING:
+        dishes: RelatedManager["Dish"]
+
+    name = models.CharField(primary_key=True, max_length=100, unique=True, verbose_name="Category name")
     description = models.TextField(blank=True, verbose_name="Description")
 
     class Meta:
@@ -41,8 +48,13 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    @property
+    def all_dishes(self):
+        return self.dishes
+
 
 class Dish(models.Model):
+    name = models.CharField(max_length=150, verbose_name="Dish name")
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
@@ -51,8 +63,6 @@ class Dish(models.Model):
         related_name="dishes",
         verbose_name="Categoria",
     )
-
-    name = models.CharField(max_length=150, verbose_name="Dish name")
     description = models.TextField(blank=True, verbose_name="Description")
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="Price (€)")
     is_available = models.BooleanField(default=True, verbose_name="Available")
@@ -98,6 +108,10 @@ class OrderStatus(models.TextChoices):
 
 
 class Order(models.Model):
+    if TYPE_CHECKING:
+        items: RelatedManager["OrderItem"]
+
+    id = models.BigAutoField(primary_key=True, verbose_name="Id")
     table = models.ForeignKey(
         Table,
         on_delete=models.CASCADE,
@@ -121,6 +135,10 @@ class Order(models.Model):
     def __str__(self) -> str:
         return f"Tavolo {self.table.number} ({self.status})"
 
+    @property
+    def total_price(self) -> Decimal:
+        return sum((item.subtotal for item in self.items.all()), Decimal(0.0))
+
 
 class OrderItemStatus(models.TextChoices):
     ORDERED = "ORDERED", "Ordered"
@@ -131,6 +149,7 @@ class OrderItemStatus(models.TextChoices):
 
 
 class OrderItem(models.Model):
+    id = models.BigAutoField(primary_key=True, verbose_name="Id")
     order = models.ForeignKey(
         Order,
         on_delete=models.CASCADE,

@@ -1,8 +1,9 @@
+from django.db import transaction
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import RestaurantConfig
+from .models import RestaurantConfig, TableStatus
 from .serializers import RestaurantConfigSerializer
 
 from core.serializers import (
@@ -40,13 +41,19 @@ class TableViewSet(viewsets.ModelViewSet):
 
 
 class DishViewSet(viewsets.ModelViewSet):
-    queryset = Dish.objects.all().order_by('id')
+    queryset = Dish.objects.select_related('category').all().order_by('id')
     serializer_class = DishSerializer
 
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all().prefetch_related('items__dish')
     serializer_class = OrderSerializer
+
+    def perform_create(self, serializer):
+        with transaction.atomic():
+            order = serializer.save()
+            order.table.status = TableStatus.OCCUPIED
+            order.table.save()
 
 
 class OrderItemViewSet(viewsets.ModelViewSet):
